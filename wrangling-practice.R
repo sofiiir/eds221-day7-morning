@@ -73,3 +73,43 @@ animals |>
   filter(!location %in% sites$location)
 
 anti_join(sites, animals)
+
+# practice with lubridate
+# lubridate
+my_date <- "03-13-1998"
+lubridate::mdy(my_date) #fixed date to ISO 1806
+
+# new format for date
+my_date <- "08-Jun-1974"
+lubridate::dmy(my_date)
+
+# another format
+my_date <- "19160518"
+lubridate::ymd(my_date)
+
+
+# what if we give lubridate a data that doesnt make sense?
+lubridate:mdy("1942-08-30")
+
+lubridate::dmy("09/12/84")
+
+# working with date-times
+
+time <- "2020-08-12 11:18"
+time <- ymd_hm(time, tz = "America/Los_Angeles") # to add time zone
+
+# convert to PDT
+with_tz(time, "America/Los_Angeles")
+
+# extract info from dates
+week(time)
+year(time)
+day(time)
+
+# can get time of the computer
+start_time <- Sys.time()
+
+end_time <- Sys.time()
+
+# tells how long the script takes to run
+end_time - start_time
