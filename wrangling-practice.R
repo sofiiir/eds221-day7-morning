@@ -113,3 +113,65 @@ end_time <- Sys.time()
 
 # tells how long the script takes to run
 end_time - start_time
+
+# practice lubridate within a data frame
+urchin_counts <- tribble(
+  ~date, ~speceies, ~size_mm,
+  "10/3/2020", "purple", 55,
+  "10/4/2020", "red", 48,
+  "11/17/2020", "red", 67
+)
+
+urchin_counts |>
+  mutate(date = lubridate::mdy(date)) |>
+  mutate(year = year(date),
+         month = month(date),
+         day = day(date))
+
+day_1 <- lubridate::ymd("2020-01-06")
+day_2 <- ymd("2020-05-18")
+day_3 <- ymd("2020-05-19")
+
+#create time interval
+time_interval <- interval(day_1, day_2)
+time_length(time_interval, "week")
+time_length(time_interval, "year")
+
+# practice with stringr
+
+# str_detect() to detect string patterns
+# returns TRUE/FALSE depending on whether the pattern is detected
+my_string <- "Teddy loves eating salmon and socks."
+
+# does the pattern "love" exist within the string?
+my_string |>
+  str_detect("love")
+
+my_string <- c("burrito", "fish taco", "taco salad")
+my_string |>
+  str_detect("fish")
+
+# powerful when combined with dplyr functions
+starwars |>
+  filter(str_detect(name, "Skywalker"))
+
+firewalkers <- starwars |>
+  mutate(name = str_replace(name, pattern = "Sky", replacement = "Fire"))
+
+# cleaning up white space
+feedback <- c("I ate  some  nachos", "Wednesday morning.    ")
+
+# remove the leading, trailing, and duplicate spaces
+str_squish(feedback)
+
+# remove just leading and trailing spaces
+str_trim(feedback)
+
+# convert cases
+str_to_lower(feedback)
+str_to_upper(feedback)
+str_to_sentence(feedback)
+str_to_title(feedback)
+
+#count mateches in a string
+str_count(feedback, pattern = "nachos")
